@@ -16,7 +16,7 @@ limitations under the License.
 --%>
 <%@page session="false" contentType="text/html"
 	pageEncoding="ISO-8859-1"
-	import="java.util.*,javax.portlet.*,com.jsrtutorial.secondexample.*"%>
+	import="java.util.*,javax.portlet.*"%>
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%>
 <portlet:defineObjects />
 <%@ taglib uri="http://ckeditor.com" prefix="ckeditor"%>

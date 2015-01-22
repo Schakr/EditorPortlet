@@ -17,9 +17,9 @@
 		<maven>2.0.9</maven>
 	</prerequisites>
 	<groupId>com.schakr</groupId>
-	<artifactId>fresh</artifactId>
+	<artifactId>editable-schakr</artifactId>
 	<version>1.0</version>
-	<name>Fresh Name</name>
+	<name>Editable Portlet (Schakr)</name>
 	<packaging>war</packaging>
 
 	<properties>
