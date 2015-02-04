@@ -17,6 +17,7 @@ package org.apache.portals.tutorials;
  */
 
 import java.io.IOException;
+
 import javax.portlet.PortletConfig;
 import javax.portlet.GenericPortlet;
 import javax.portlet.PortletException;
@@ -24,15 +25,22 @@ import javax.portlet.PortletRequestDispatcher;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.WindowState;
+
 import java.io.*;
+import java.util.logging.Logger;
+
 import javax.portlet.*;
+
 import com.ckeditor.*;
 
 public class MyPortlet extends GenericPortlet {
 
+	private final Logger log = Logger.getLogger(MyPortlet.class.toString());
+	
 	private static final String NORMAL_VIEW = "/normal.jsp";
 	private static final String MAXIMIZED_VIEW = "/maximized.jsp";
 	private static final String HELP_VIEW = "/help.jsp";
+	private static final String EDIT_VIEW = "/edit.jsp";
 
 	private PortletRequestDispatcher normalView;
 	private PortletRequestDispatcher maximizedView;
@@ -45,23 +53,35 @@ public class MyPortlet extends GenericPortlet {
 		request.getPortletSession().setAttribute("freshVal", freshVal);
 	}
 	
+	
+	
+
+	
+	protected void doEdit(RenderRequest request, RenderResponse response)
+			throws PortletException, IOException {
+		editView.include(request, response);
+	}
+
+
+
 
 	public void doView(RenderRequest request, RenderResponse response)
 			throws PortletException, IOException {
 		response.setContentType(request.getResponseContentType());
 		if (WindowState.MINIMIZED.equals(request.getWindowState())) {
+			log.info("minimized");
 			return;
 		}
 
 		if (WindowState.NORMAL.equals(request.getWindowState())) {
+			log.info("normal");
 			normalView.include(request, response);
 		} else {
+			log.info("maximized");
+			
 			maximizedView.include(request, response);
-		}
+		}		
 		
-		Object freshVal = request.getPortletSession().getAttribute("freshVal");
-		freshVal = freshVal == null ? "" : freshVal;
-		response.getWriter().print(freshVal.toString());
 	}
 	
 	
@@ -82,6 +102,7 @@ public class MyPortlet extends GenericPortlet {
 		maximizedView = config.getPortletContext().getRequestDispatcher(
 				MAXIMIZED_VIEW);
 		helpView = config.getPortletContext().getRequestDispatcher(HELP_VIEW);
+		editView = config.getPortletContext().getRequestDispatcher(EDIT_VIEW);
 	}
 
 	public void destroy() {
