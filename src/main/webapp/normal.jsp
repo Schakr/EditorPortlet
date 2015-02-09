@@ -24,5 +24,8 @@ limitations under the License.
 <%@ page import="javax.portlet.PortletConfig" %>
 <portletAPI:defineObjects />
 
-${freshVal}
-hello world
+<%
+	Object oVal = renderRequest.getPortletSession().getAttribute("freshVal");
+	String Val = (oVal == null) ? "" : oVal.toString();
+%>
+<%=Val %>
